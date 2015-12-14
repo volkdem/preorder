@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Preorder</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_select_pick_up_time">SelectPickUpTimeActivity</string>
+    <string name="title_activity_goods_selecting">GoodsSelectingActivity</string>
+    <string name="make_order">Заказать</string>
+    <string name="bin">Корзина</string>
+</resources>
