@@ -1,11 +1,12 @@
 package com.preorder.preorder.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
  * Created by Evgeny on 29.11.2015.
  */
-public class Product {
+public class Product implements Serializable {
     private Long id;
     private String name;
     private BigDecimal cost;

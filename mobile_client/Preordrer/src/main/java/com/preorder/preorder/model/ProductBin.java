@@ -1,5 +1,6 @@
 package com.preorder.preorder.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +10,7 @@ import java.util.Map;
 /**
  * Created by Evgeny on 05.12.2015.
  */
-public class ProductBin  {
+public class ProductBin implements Serializable {
     private Long restraintId;
     private Map<Product, Integer> products = new HashMap<>();
     private IProductBinChangeListener binChangeLisnter;

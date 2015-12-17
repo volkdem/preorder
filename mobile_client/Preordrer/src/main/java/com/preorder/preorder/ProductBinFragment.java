@@ -2,12 +2,14 @@ package com.preorder.preorder;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
@@ -25,14 +27,28 @@ import java.util.zip.Inflater;
  * Created by Evgeny on 06.12.2015.
  */
 public class ProductBinFragment extends Fragment implements IProductBinChangeListener {
+    public static final String BIN_KEY = "BIN_KEY";
+    public static final String PRODUCT_ORDER_KEY = "PRODUCT_ORDER_KEY";
     private ProductBin productBin = null;
-    private List<Product> productOrder = new ArrayList<Product>();
+    private ArrayList<Product> productOrder = new ArrayList<Product>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate( R.layout.product_bin_fragment, null );
-        ((ListView)view.findViewById(R.id.binContent)).setAdapter( new ProductListAdapter() );
+        ((ListView)view.findViewById(R.id.binContent)).setAdapter( new ProductListAdapter( productOrder ) );
+
+        Button makeOrderButton = ( Button ) view.findViewById( R.id.make_order );
+        makeOrderButton.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick( View v ) {
+                Intent startOrderConfirmationActivityIntent = new Intent( getContext(), OrderConfirmationActivity.class );
+                startOrderConfirmationActivityIntent.putExtra( BIN_KEY, productBin );
+                startOrderConfirmationActivityIntent.putExtra( PRODUCT_ORDER_KEY, productOrder );
+                getActivity().startActivity( startOrderConfirmationActivityIntent );
+            }
+        } );
+
 
         return view;
     }
@@ -61,41 +77,5 @@ public class ProductBinFragment extends Fragment implements IProductBinChangeLis
         productBin.setBinChangeLisnter(this);
     }
 
-    class ProductListAdapter extends BaseAdapter {
 
-        @Override
-        public int getCount() {
-            return productOrder.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return productOrder.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return productOrder.get(position).getId();
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View view = convertView;
-            if (view == null) {
-                LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                view = inflater.inflate(R.layout.product_layout, null);
-            }
-
-            final Product product = productOrder.get(position);
-
-            TextView productView = (TextView) view.findViewById(R.id.product);
-            productView.setText(product.getName());
-
-            TextView costView = (TextView) view.findViewById(R.id.cost);
-            costView.setText(product.getCost().toString());
-
-
-            return view;
-        }
-    }
 }
