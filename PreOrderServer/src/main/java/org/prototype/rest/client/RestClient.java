@@ -33,13 +33,13 @@ public class RestClient {
         Client client = Client.create();
 
         WebResource webResource = client
-                .resource("http://localhost:8080/preorder.prototype.server/makePreOrder");
+                .resource("http://localhost:8080/makePreOrder");
 
         Order order = new Order();
         OrderItem item = new OrderItem();
         item.setItemAmount(2);
         item.setItemName("Coke");
-        order.setOrderID("E_123456789");
+        order.setOrderID("E_123");
         order.setOrderTime(new Date());
         order.setPickupTime(new Date());
         order.getItemsList().add(item);
@@ -51,7 +51,7 @@ public class RestClient {
         ClientResponse response = webResource.type("application/json")
                 .post(ClientResponse.class, data);
 
-        if (response.getStatus() != 201) {
+        if (response.getStatus() != 200) {
             throw new RuntimeException("Failed : HTTP error code : "
                     + response.getStatus());
         }
