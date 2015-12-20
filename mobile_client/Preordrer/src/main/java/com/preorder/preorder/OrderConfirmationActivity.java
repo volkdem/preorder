@@ -7,7 +7,6 @@ import android.widget.ListView;
 import com.preorder.preorder.model.Product;
 import com.preorder.preorder.model.ProductBin;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class OrderConfirmationActivity extends AppCompatActivity {
@@ -20,6 +19,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         ListView orderListView = (ListView) findViewById( R.id.list_item );
         List< Product > productOrder = (List< Product >)getIntent().getSerializableExtra( ProductBinFragment.PRODUCT_ORDER_KEY );
         ProductBin productBin = (ProductBin) getIntent().getSerializableExtra( ProductBinFragment.BIN_KEY );
-        orderListView.setAdapter( new ProductListAdapter( productOrder ) );
+        orderListView.setAdapter( new ProductListAdapter( productOrder, productBin ) );
+
     }
 }
