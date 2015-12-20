@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.preorder.prototype.server</groupId>
+  <artifactId>preorder.prototype.server</artifactId>
+  <packaging>war</packaging>
+  <name>preorder.prototype.server Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+
+    <build>
+      <finalName>preorder.prototype.server</finalName>
+    </build>
+
+  <parent>
+    <groupId>org.preorder.prototype</groupId>
+    <artifactId>preorder.prototype</artifactId>
+    <version>${global.version}</version>
+    <relativePath>..</relativePath>
+  </parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.preorder.prototype.common</groupId>
+      <artifactId>preorder.prototype.common</artifactId>
+      <version>${global.version}</version>
+    </dependency>
+  </dependencies>
+
+
+</project>
