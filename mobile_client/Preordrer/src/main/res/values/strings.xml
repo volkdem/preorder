@@ -6,4 +6,8 @@
     <string name="make_order">Заказать</string>
     <string name="bin">Корзина</string>
     <string name="pay">Оплатить</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="pickup_order">Забрать</string>
+    <string name="soon">ближайшее время</string>
 </resources>
