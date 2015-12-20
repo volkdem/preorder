@@ -1,6 +1,7 @@
 package com.preorder.preorder;
 
 import android.content.Context;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AlphabetIndexer;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -15,6 +17,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.preorder.preorder.model.IProductBinChangeListener;
 import com.preorder.preorder.model.Product;
 import com.preorder.preorder.model.ProductBin;
 import com.preorder.preorder.model.ProductsCatalog;
@@ -24,7 +27,7 @@ import java.util.List;
 /**
  * Created by Evgeny on 01.12.2015.
  */
-public class RestraintMenuFragment extends ListFragment {
+public class RestraintMenuFragment extends ListFragment implements IProductBinChangeListener {
     private ProductsCatalog catalog;
     private ProductBin productBin;
 
@@ -44,6 +47,14 @@ public class RestraintMenuFragment extends ListFragment {
 
     public void setProductBin(ProductBin productBin) {
         this.productBin = productBin;
+        this.productBin.addBinChangeLisnter( this );
+    }
+
+    @Override
+    public void update( ProductBin productBin, Product product ) {
+        if (isVisible()) {
+            ( ( MenuAdapter ) getListView().getAdapter() ).notifyDataSetChanged();
+        }
     }
 
 
@@ -57,6 +68,7 @@ public class RestraintMenuFragment extends ListFragment {
         @Override
         public int getCount() {
             return products.size();
+
         }
 
         @Override

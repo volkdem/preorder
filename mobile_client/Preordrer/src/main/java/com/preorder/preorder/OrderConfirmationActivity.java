@@ -19,7 +19,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         ListView orderListView = (ListView) findViewById( R.id.list_item );
         List< Product > productOrder = (List< Product >)getIntent().getSerializableExtra( ProductBinFragment.PRODUCT_ORDER_KEY );
         ProductBin productBin = (ProductBin) getIntent().getSerializableExtra( ProductBinFragment.BIN_KEY );
-        orderListView.setAdapter( new ProductListAdapter( productOrder, productBin ) );
+        orderListView.setAdapter( new BinProductListAdapter( productOrder, productBin ) );
 
     }
 }

@@ -1,12 +1,13 @@
 package com.preorder.preorder.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Evgeny on 29.11.2015.
  */
-public class ProductsCatalog {
+public class ProductsCatalog implements Serializable{
     private Long id;
     private String name;
 

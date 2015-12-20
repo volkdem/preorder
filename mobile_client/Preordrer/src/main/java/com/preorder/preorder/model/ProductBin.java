@@ -1,5 +1,6 @@
 package com.preorder.preorder.model;
 
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.Map;
 public class ProductBin implements Serializable {
     private Long restraintId;
     private Map<Product, Integer> products = new HashMap<>();
-    private IProductBinChangeListener binChangeLisnter;
+    private List< IProductBinChangeListener > binChangeLisnters = new ArrayList<IProductBinChangeListener>(  );
 
     public ProductBin(Long restraintId) {
         this.restraintId = restraintId;
@@ -22,7 +23,7 @@ public class ProductBin implements Serializable {
 
     public void addProduct(Product product, int count) {
         products.put(product, count);
-        binChangeLisnter.update(this, product);
+        notifyListeners( product );
     }
 
     public BigDecimal getCost() {
@@ -41,20 +42,26 @@ public class ProductBin implements Serializable {
 
     public void removeProduct(Product product) {
         products.remove( product );
-        binChangeLisnter.update(this, product);
+        notifyListeners( product );
     }
 
 
     public void clear() {
         products.clear();
-        binChangeLisnter.update(this, null);
+        notifyListeners( null );
     }
 
-    public void setBinChangeLisnter(IProductBinChangeListener binChangeLisnter) {
-        this.binChangeLisnter = binChangeLisnter;
+    public void addBinChangeLisnter( IProductBinChangeListener binChangeLisnter ) {
+        binChangeLisnters.add( binChangeLisnter );
     }
 
     public Map<Product, Integer> getProducts() {
         return products;
+    }
+
+    private void notifyListeners( Product product ) {
+        for( IProductBinChangeListener binChangeListener: binChangeLisnters ) {
+            binChangeListener.update( this, product );
+        }
     }
 }

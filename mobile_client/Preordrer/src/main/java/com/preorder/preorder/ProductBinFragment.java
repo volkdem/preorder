@@ -30,7 +30,7 @@ public class ProductBinFragment extends Fragment implements IProductBinChangeLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate( R.layout.product_bin_fragment, null );
-        ((ListView)view.findViewById(R.id.binContent)).setAdapter( new ProductListAdapter( productOrder, productBin ) );
+        ((ListView)view.findViewById(R.id.binContent)).setAdapter( new BinProductListAdapter( productOrder ) );
 
         Button makeOrderButton = ( Button ) view.findViewById( R.id.make_order );
         makeOrderButton.setOnClickListener( new View.OnClickListener() {
@@ -53,10 +53,10 @@ public class ProductBinFragment extends Fragment implements IProductBinChangeLis
         productOrder.remove( product );
         if (productBin.containsProduct( product ) ) {
             // put to the end of the list
-            productOrder.add( product );
+            productOrder.add( 0, product );
         }
 
-        ((ProductListAdapter)((ListView)getView().findViewById(R.id.binContent)).getAdapter()).notifyDataSetChanged();
+        ((BinProductListAdapter )((ListView)getView().findViewById(R.id.binContent)).getAdapter()).notifyDataSetChanged();
 
         // update price
         TextView costView = (TextView) getView().findViewById( R.id.binCost );
@@ -68,9 +68,9 @@ public class ProductBinFragment extends Fragment implements IProductBinChangeLis
 
     public void setProductBin(ProductBin productBin) {
         this.productBin = productBin;
-        productBin.setBinChangeLisnter(this);
+        productBin.addBinChangeLisnter( this );
         ListView productListView = ( ListView ) getView().findViewById( R.id.binContent );
-        ((ProductListAdapter) productListView.getAdapter()).setProductBin( productBin );
+        ((BinProductListAdapter ) productListView.getAdapter()).setProductBin( productBin );
     }
 
 
