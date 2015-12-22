@@ -20,10 +20,10 @@ import java.util.ArrayList;
 /**
  * Created by Evgeny on 06.12.2015.
  */
-public class ProductBinFragment extends Fragment implements IProductBinChangeListener {
+public class ProductBinFragment extends Fragment implements IProductBinChangeListener{
     public static final String BIN_KEY = "BIN_KEY";
     public static final String PRODUCT_ORDER_KEY = "PRODUCT_ORDER_KEY";
-    private ProductBin productBin = null;
+    private ProductBinWrapper productBin = null;
     private ArrayList<Product> productOrder = new ArrayList<Product>();
 
     @Nullable
@@ -37,7 +37,7 @@ public class ProductBinFragment extends Fragment implements IProductBinChangeLis
             @Override
             public void onClick( View v ) {
                 Intent startOrderConfirmationActivityIntent = new Intent( getContext(), OrderConfirmationActivity.class );
-                startOrderConfirmationActivityIntent.putExtra( BIN_KEY, productBin );
+                startOrderConfirmationActivityIntent.putExtra( BIN_KEY, productBin.getProductBin() );
                 startOrderConfirmationActivityIntent.putExtra( PRODUCT_ORDER_KEY, productOrder );
                 getActivity().startActivity( startOrderConfirmationActivityIntent );
             }
@@ -49,28 +49,31 @@ public class ProductBinFragment extends Fragment implements IProductBinChangeLis
 
 
     @Override
-    public void update(ProductBin productBin, Product product ) {
+    public void update(ProductBinWrapper productBinWrapper, Product product ) {
         productOrder.remove( product );
-        if (productBin.containsProduct( product ) ) {
+        if (productBinWrapper.containsProduct( product ) ) {
             // put to the end of the list
             productOrder.add( 0, product );
         }
 
-        ((BinProductListAdapter )((ListView)getView().findViewById(R.id.binContent)).getAdapter()).notifyDataSetChanged();
+        View binFragment = getView();
+        if( binFragment == null ) {
+            return;
+        }
 
         // update price
-        TextView costView = (TextView) getView().findViewById( R.id.binCost );
-        costView.setText( productBin.getCost() + " Р");
+        TextView costView = (TextView) binFragment.findViewById( R.id.binCost );
+        costView.setText( productBinWrapper.getCost() + " Р");
 
     }
 
 
 
-    public void setProductBin(ProductBin productBin) {
+    public void setProductBin(ProductBinWrapper productBin) {
         this.productBin = productBin;
         productBin.addBinChangeLisnter( this );
         ListView productListView = ( ListView ) getView().findViewById( R.id.binContent );
-        ((BinProductListAdapter ) productListView.getAdapter()).setProductBin( productBin );
+        ((BinProductListAdapter ) productListView.getAdapter()).setProductBinWrapper( productBin );
     }
 
 

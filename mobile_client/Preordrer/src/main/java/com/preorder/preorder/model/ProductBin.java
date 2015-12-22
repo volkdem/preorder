@@ -14,7 +14,7 @@ import java.util.Map;
 public class ProductBin implements Serializable {
     private Long restraintId;
     private Map<Product, Integer> products = new HashMap<>();
-    private List< IProductBinChangeListener > binChangeLisnters = new ArrayList<IProductBinChangeListener>(  );
+
 
     public ProductBin(Long restraintId) {
         this.restraintId = restraintId;
@@ -23,7 +23,7 @@ public class ProductBin implements Serializable {
 
     public void addProduct(Product product, int count) {
         products.put(product, count);
-        notifyListeners( product );
+
     }
 
     public BigDecimal getCost() {
@@ -42,26 +42,19 @@ public class ProductBin implements Serializable {
 
     public void removeProduct(Product product) {
         products.remove( product );
-        notifyListeners( product );
+
     }
 
 
     public void clear() {
         products.clear();
-        notifyListeners( null );
     }
 
-    public void addBinChangeLisnter( IProductBinChangeListener binChangeLisnter ) {
-        binChangeLisnters.add( binChangeLisnter );
-    }
+
 
     public Map<Product, Integer> getProducts() {
         return products;
     }
 
-    private void notifyListeners( Product product ) {
-        for( IProductBinChangeListener binChangeListener: binChangeLisnters ) {
-            binChangeListener.update( this, product );
-        }
-    }
+
 }

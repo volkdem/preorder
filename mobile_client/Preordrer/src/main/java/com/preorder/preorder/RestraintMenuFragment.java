@@ -1,19 +1,15 @@
 package com.preorder.preorder;
 
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AlphabetIndexer;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,16 +23,18 @@ import java.util.List;
 /**
  * Created by Evgeny on 01.12.2015.
  */
-public class RestraintMenuFragment extends ListFragment implements IProductBinChangeListener {
+public class RestraintMenuFragment extends ListFragment {
     private ProductsCatalog catalog;
-    private ProductBin productBin;
+    private ProductBinWrapper productBinWrapper;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ListView view = (ListView)inflater.inflate( R.layout.restraint_menu_fragment_layout, null );
-        view.setAdapter( new MenuAdapter( catalog.getProducts() ) );
+        MenuAdapter adapter = new MenuAdapter( catalog.getProducts() );
+        productBinWrapper.addBinChangeLisnter( adapter );
+        view.setAdapter( adapter );
         return view;
     }
 
@@ -44,21 +42,12 @@ public class RestraintMenuFragment extends ListFragment implements IProductBinCh
         this.catalog = catalog;
     }
 
-
-    public void setProductBin(ProductBin productBin) {
-        this.productBin = productBin;
-        this.productBin.addBinChangeLisnter( this );
-    }
-
-    @Override
-    public void update( ProductBin productBin, Product product ) {
-        if (isVisible()) {
-            ( ( MenuAdapter ) getListView().getAdapter() ).notifyDataSetChanged();
-        }
+    public void setProductBinWrapper( ProductBinWrapper productBinWrapper ) {
+        this.productBinWrapper = productBinWrapper;
     }
 
 
-    class MenuAdapter extends BaseAdapter {
+    class MenuAdapter extends BaseAdapter implements IProductBinChangeListener {
         private List<Product> products;
 
         public MenuAdapter(List<Product> products) {
@@ -94,23 +83,28 @@ public class RestraintMenuFragment extends ListFragment implements IProductBinCh
             productView.setText(product.getName());
 
             TextView costView = (TextView) view.findViewById( R.id.cost) ;
-            costView.setText(product.getCost().toString());
+            costView.setText(product.getCost().toString() );
 
             CheckBox checkBox = (CheckBox) view.findViewById( R.id.productSelectionChecker);
-            checkBox.setChecked( productBin.containsProduct( product ) );
+            checkBox.setChecked( productBinWrapper.containsProduct( product ) );
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     buttonView.setChecked(isChecked);
                     if (isChecked) {
-                        productBin.addProduct(product, 1);
+                        productBinWrapper.addProduct( product, 1 );
                     } else {
-                        productBin.removeProduct(product);
+                        productBinWrapper.removeProduct( product );
                     }
                 }
             });
 
             return view;
+        }
+
+        @Override
+        public void update( ProductBinWrapper productBin, Product product ) {
+            notifyDataSetChanged();
         }
     }
 }

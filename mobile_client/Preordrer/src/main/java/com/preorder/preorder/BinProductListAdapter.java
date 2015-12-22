@@ -18,21 +18,23 @@ import java.util.List;
 /**
  * Created by Evgeny on 20.12.2015.
  */
-public class BinProductListAdapter extends BaseAdapter  {
+public class BinProductListAdapter extends BaseAdapter implements IProductBinChangeListener {
     private List< Product > productOrder;
-    private ProductBin productBin;
+    private ProductBinWrapper productBinWrapper;
 
     public BinProductListAdapter( List< Product > productOrder ) {
         this.productOrder = productOrder;
     }
 
-    public BinProductListAdapter( List< Product > productOrder, ProductBin productBin ) {
+    public BinProductListAdapter( List< Product > productOrder, ProductBinWrapper productBinWrapper ) {
         this.productOrder = productOrder;
-        this.productBin = productBin;
+        this.productBinWrapper = productBinWrapper;
+        productBinWrapper.addBinChangeLisnter( this );
     }
 
-    public void setProductBin( ProductBin productBin ) {
-        this.productBin = productBin;
+    public void setProductBinWrapper( ProductBinWrapper productBinWrapper ) {
+        this.productBinWrapper = productBinWrapper;
+        productBinWrapper.addBinChangeLisnter( this );
     }
 
     @Override
@@ -72,11 +74,21 @@ public class BinProductListAdapter extends BaseAdapter  {
             @Override
             public void onCheckedChanged( CompoundButton buttonView, boolean isChecked ) {
                 if (!isChecked ) {
-                    productBin.removeProduct( product );
+                    productBinWrapper.removeProduct( product );
                 }
             }
         } );
 
         return view;
+    }
+
+    @Override
+    public void update( ProductBinWrapper productBin, Product product ) {
+        productOrder.remove( product );
+        if (productBin.containsProduct( product )) {
+            productOrder.add( 0, product );
+        }
+
+        notifyDataSetChanged();
     }
 }
