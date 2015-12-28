@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class SelectPickUpTimeActivity extends Activity {
 
@@ -25,7 +26,7 @@ public class SelectPickUpTimeActivity extends Activity {
         });
 
         TextView orderTime = (TextView) findViewById( R.id.order_time );
-        SimpleDateFormat formatter = new SimpleDateFormat( "hh:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat( "hh:mm", Locale.getDefault());
         orderTime.setText( formatter.format(new Date()));
         orderTime.setOnClickListener(new View.OnClickListener() {
             @Override

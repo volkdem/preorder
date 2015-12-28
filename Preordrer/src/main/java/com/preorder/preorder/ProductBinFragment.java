@@ -36,7 +36,7 @@ public class ProductBinFragment extends Fragment implements IProductBinChangeLis
         makeOrderButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick( View v ) {
-                Intent startOrderConfirmationActivityIntent = new Intent( getContext(), OrderConfirmationActivity.class );
+                Intent startOrderConfirmationActivityIntent = new Intent( getActivity().getApplicationContext(), OrderConfirmationActivity.class );
                 startOrderConfirmationActivityIntent.putExtra( BIN_KEY, productBin.getProductBin() );
                 startOrderConfirmationActivityIntent.putExtra( PRODUCT_ORDER_KEY, productOrder );
                 getActivity().startActivity( startOrderConfirmationActivityIntent );
