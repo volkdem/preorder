@@ -1,33 +1,48 @@
 package org.prototype.model;
 
-import java.util.ArrayList;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Created by Vadim on 30.11.2015.
+ * Created by Evgeny on 05.12.2015.
  */
-public class Order {
-
-    private String orderID;
+public class Order implements Serializable {
+    private Long restraintId;
+    private String id;
     private Date orderTime;
     private Date pickupTime;
-    private List<OrderItem> itemsList = new ArrayList<OrderItem>();
+    private Map<Product, Integer> products = new HashMap<>();
 
-
-    public String getOrderID() {
-        return orderID;
+    public Order( Long restraintId ) {
+        this.restraintId = restraintId;
     }
 
-    public void setOrderID(String orderID) {
-        this.orderID = orderID;
+
+    public Long getRestraintId() {
+        return restraintId;
+    }
+
+    public void setRestraintId( Long restraintId ) {
+        this.restraintId = restraintId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId( String id ) {
+        this.id = id;
     }
 
     public Date getOrderTime() {
         return orderTime;
     }
 
-    public void setOrderTime(Date orderTime) {
+    public void setOrderTime( Date orderTime ) {
         this.orderTime = orderTime;
     }
 
@@ -35,27 +50,52 @@ public class Order {
         return pickupTime;
     }
 
-    public void setPickupTime(Date pickupTime) {
+    public void setPickupTime( Date pickupTime ) {
         this.pickupTime = pickupTime;
     }
 
-    public List<OrderItem> getItemsList() {
-        return itemsList;
+    public void addProduct(Product product, int count) {
+        products.put(product, count);
+
     }
 
-    public void setItemsList(List<OrderItem> itemsList) {
-        this.itemsList = itemsList;
+    public BigDecimal getCost() {
+        BigDecimal cost = new BigDecimal( 0 ).setScale( 2 );
+        for( Product product: products.keySet() ) {
+            cost = cost.add( product.getCost().multiply( new BigDecimal( products.get( product ) ) ) );
+        }
+
+        return cost;
     }
 
+    public boolean containsProduct( Product product ) {
+        return  products.containsKey( product );
+    }
+
+
+    public void removeProduct(Product product) {
+        products.remove( product );
+
+    }
+
+
+    public void clear() {
+        products.clear();
+    }
+
+
+
+    public Map<Product, Integer> getProducts() {
+        return products;
+    }
 
     @Override
     public String toString() {
         return "Order{" +
-                "orderID='" + orderID + '\'' +
+                "orderID='" + id + '\'' +
                 ", orderTime=" + orderTime +
                 ", pickupTime=" + pickupTime +
-                ", itemsList=" + itemsList +
+                ", itemsList=" + products +
                 '}';
     }
-
 }

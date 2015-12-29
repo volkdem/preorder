@@ -1,4 +1,4 @@
-package com.preorder.preorder.model;
+package org.prototype.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;

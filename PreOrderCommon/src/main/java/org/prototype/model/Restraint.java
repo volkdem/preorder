@@ -1,4 +1,4 @@
-package com.preorder.preorder.model;
+package org.prototype.model;
 
 import java.util.List;
 

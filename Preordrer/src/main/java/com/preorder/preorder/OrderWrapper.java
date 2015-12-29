@@ -1,8 +1,8 @@
 package com.preorder.preorder;
 
 import com.preorder.preorder.model.IProductBinChangeListener;
-import com.preorder.preorder.model.Product;
-import com.preorder.preorder.model.ProductBin;
+import org.prototype.model.Product;
+import org.prototype.model.Order;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -12,38 +12,38 @@ import java.util.Map;
 /**
  * Created by Evgeny on 22.12.2015.
  */
-public class ProductBinWrapper {
-    private ProductBin productBin;
+public class OrderWrapper {
+    private Order order;
     private List< IProductBinChangeListener > binChangeLisnters = new ArrayList<IProductBinChangeListener>(  );
 
-    public ProductBinWrapper( ProductBin productBin ) {
-        this.productBin = productBin;
+    public OrderWrapper( Order order ) {
+        this.order = order;
     }
 
-    public ProductBin getProductBin() {
-        return productBin;
+    public Order getOrder() {
+        return order;
     }
 
     public void addProduct( Product product, int count ) {
-        productBin.addProduct( product, count );
+        order.addProduct( product, count );
         notifyListeners( product );
     }
 
     public BigDecimal getCost() {
-        return productBin.getCost();
+        return order.getCost();
     }
 
     public boolean containsProduct( Product product ) {
-        return productBin.containsProduct( product );
+        return order.containsProduct( product );
     }
 
     public void removeProduct( Product product ) {
-        productBin.removeProduct( product );
+        order.removeProduct( product );
         notifyListeners( product );
     }
 
     public void clear() {
-        productBin.clear();
+        order.clear();
         notifyListeners( null );
     }
 
@@ -53,7 +53,7 @@ public class ProductBinWrapper {
     }
 
     public Map< Product, Integer > getProducts() {
-        return productBin.getProducts();
+        return order.getProducts();
     }
 
     private void notifyListeners( Product product ) {
