@@ -5,16 +5,10 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.prototype.model.Product;
 import org.prototype.model.Order;
-import org.prototype.model.OrderItem;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -35,14 +29,12 @@ public class RestClient {
         WebResource webResource = client
                 .resource("http://localhost:8080/makePreOrder");
 
-        Order order = new Order();
-        OrderItem item = new OrderItem();
-        item.setItemAmount(2);
-        item.setItemName("Coke");
-        order.setOrderID("E_123");
+        Order order = new Order( 1L );
+        Product item = new Product( 1L, "Coke", new BigDecimal( 30 ) );
+        order.setId( "E_123" );
         order.setOrderTime(new Date());
         order.setPickupTime(new Date());
-        order.getItemsList().add(item);
+        order.addProduct( item, 2 );
 
         ObjectMapper toJSONMapper = new ObjectMapper();
         String data = toJSONMapper.writeValueAsString(order);

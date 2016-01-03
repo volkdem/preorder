@@ -22,7 +22,7 @@ public class PreOrder_Server_REST {
 
     private Logger log = Logger.getLogger(PreOrder_Server_REST.class);
 
-    private List<Order> orders;
+    private List< Order > orders;
 
 
 
@@ -33,7 +33,7 @@ public class PreOrder_Server_REST {
 
 
         if(isOrdersEmpty()) {
-            orders = new ArrayList<Order>();
+            orders = new ArrayList<>();
         }
 
 
