@@ -1,4 +1,4 @@
-package com.preorder.preorder;
+package com.preorder.preorder.ui;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

@@ -9,7 +9,9 @@ evaluationDependsOn(':PreOrderCommon')
 dependencies {
     compile project(':PreOrderCommon')
     compile project(':PreOrderServer')
+    compile project(':volley')
     compile project(':Preordrer')
+
 }
 
 

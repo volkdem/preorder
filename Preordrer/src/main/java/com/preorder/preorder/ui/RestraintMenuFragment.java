@@ -1,4 +1,4 @@
-package com.preorder.preorder;
+package com.preorder.preorder.ui;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,10 +13,10 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.preorder.preorder.R;
 import com.preorder.preorder.model.IProductBinChangeListener;
-import com.preorder.preorder.model.Product;
-import com.preorder.preorder.model.ProductBin;
-import com.preorder.preorder.model.ProductsCatalog;
+import org.prototype.model.Product;
+import org.prototype.model.ProductsCatalog;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class RestraintMenuFragment extends ListFragment {
     private ProductsCatalog catalog;
-    private ProductBinWrapper productBinWrapper;
+    private OrderWrapper orderWrapper;
 
 
     @Nullable
@@ -33,7 +33,7 @@ public class RestraintMenuFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ListView view = (ListView)inflater.inflate( R.layout.restraint_menu_fragment_layout, null );
         MenuAdapter adapter = new MenuAdapter( catalog.getProducts() );
-        productBinWrapper.addBinChangeLisnter( adapter );
+        orderWrapper.addBinChangeLisnter( adapter );
         view.setAdapter( adapter );
         return view;
     }
@@ -42,8 +42,8 @@ public class RestraintMenuFragment extends ListFragment {
         this.catalog = catalog;
     }
 
-    public void setProductBinWrapper( ProductBinWrapper productBinWrapper ) {
-        this.productBinWrapper = productBinWrapper;
+    public void setOrderWrapper( OrderWrapper orderWrapper ) {
+        this.orderWrapper = orderWrapper;
     }
 
 
@@ -86,15 +86,15 @@ public class RestraintMenuFragment extends ListFragment {
             costView.setText(product.getCost().toString() );
 
             CheckBox checkBox = (CheckBox) view.findViewById( R.id.productSelectionChecker);
-            checkBox.setChecked( productBinWrapper.containsProduct( product ) );
+            checkBox.setChecked( orderWrapper.containsProduct( product ) );
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     buttonView.setChecked(isChecked);
                     if (isChecked) {
-                        productBinWrapper.addProduct( product, 1 );
+                        orderWrapper.addProduct( product, 1 );
                     } else {
-                        productBinWrapper.removeProduct( product );
+                        orderWrapper.removeProduct( product );
                     }
                 }
             });
@@ -103,7 +103,7 @@ public class RestraintMenuFragment extends ListFragment {
         }
 
         @Override
-        public void update( ProductBinWrapper productBin, Product product ) {
+        public void update( OrderWrapper productBin, Product product ) {
             notifyDataSetChanged();
         }
     }

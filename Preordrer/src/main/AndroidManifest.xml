@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.preorder.preorder" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".RestraintListActivity"
+            android:name=".ui.RestraintListActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
@@ -19,20 +22,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SelectPickUpTimeActivity"
+            android:name=".ui.SelectPickUpTimeActivity"
             android:label="@string/title_activity_select_pick_up_time"
-            android:parentActivityName=".RestraintListActivity"
+            android:parentActivityName=".ui.RestraintListActivity"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.preorder.preorder.RestraintListActivity" />
+                android:value=".ui.RestraintListActivity" />
         </activity>
         <activity
-            android:name=".GoodsSelectingActivity"
+            android:name=".ui.GoodsSelectingActivity"
             android:label="@string/title_activity_goods_selecting"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
-        <activity android:name=".OrderConfirmationActivity" >
+        <activity android:name=".ui.OrderConfirmationActivity" >
         </activity>
     </application>
 

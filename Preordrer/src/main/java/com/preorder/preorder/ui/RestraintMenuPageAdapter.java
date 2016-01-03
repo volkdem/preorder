@@ -1,11 +1,11 @@
-package com.preorder.preorder;
+package com.preorder.preorder.ui;
 
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.preorder.preorder.model.ProductsCatalog;
+import org.prototype.model.ProductsCatalog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,19 +15,19 @@ import java.util.List;
  */
 public class RestraintMenuPageAdapter extends FragmentStatePagerAdapter {
     private List<ProductsCatalog> menu;
-    private ProductBinWrapper productBinWrapper;
+    private OrderWrapper orderWrapper;
 
-    public RestraintMenuPageAdapter(FragmentManager fm, List<ProductsCatalog> menu, ProductBinWrapper prodcutBin) {
+    public RestraintMenuPageAdapter(FragmentManager fm, List<ProductsCatalog> menu, OrderWrapper prodcutBin) {
         super(fm);
         this.menu = new ArrayList<>( menu );
-        this.productBinWrapper = prodcutBin;
+        this.orderWrapper = prodcutBin;
     }
 
     @Override
     public Fragment getItem(int position) {
         RestraintMenuFragment menuFragment = new RestraintMenuFragment();
         menuFragment.setCatalog( menu.get( position ) );
-        menuFragment.setProductBinWrapper( productBinWrapper );
+        menuFragment.setOrderWrapper( orderWrapper );
         return menuFragment;
     }
 

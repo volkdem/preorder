@@ -1,26 +1,22 @@
-package com.preorder.preorder;
+package com.preorder.preorder.ui;
 
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import com.preorder.preorder.model.Restraint;
+import org.prototype.model.Restraint;
+
+import com.preorder.preorder.R;
 import com.preorder.preorder.stubs.StubFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RestraintListActivity extends ListActivity {
@@ -28,7 +24,7 @@ public class RestraintListActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_restraint_list);
+        setContentView( R.layout.activity_restraint_list);
 
         RestraintViewAdapter restraintAdapter = new RestraintViewAdapter();
         setListAdapter( restraintAdapter );

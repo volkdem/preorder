@@ -10,7 +10,7 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_goods_selecting"
-    tools:context="com.preorder.preorder.GoodsSelectingActivity">
+    tools:context="com.preorder.preorder.ui.GoodsSelectingActivity">
 
 
     <android.support.v4.view.ViewPager
@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/product_bin"
-        android:name="com.preorder.preorder.ProductBinFragment"
+        android:name="com.preorder.preorder.ui.ProductBinFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

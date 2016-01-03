@@ -1,8 +1,8 @@
 package com.preorder.preorder.stubs;
 
-import com.preorder.preorder.model.Product;
-import com.preorder.preorder.model.ProductsCatalog;
-import com.preorder.preorder.model.Restraint;
+import org.prototype.model.Product;
+import org.prototype.model.ProductsCatalog;
+import org.prototype.model.Restraint;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

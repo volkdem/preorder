@@ -1,4 +1,4 @@
-package com.preorder.preorder;
+package com.preorder.preorder.ui;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,9 +9,9 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.preorder.preorder.R;
 import com.preorder.preorder.model.IProductBinChangeListener;
-import com.preorder.preorder.model.Product;
-import com.preorder.preorder.model.ProductBin;
+import org.prototype.model.Product;
 
 import java.util.List;
 
@@ -20,21 +20,21 @@ import java.util.List;
  */
 public class BinProductListAdapter extends BaseAdapter implements IProductBinChangeListener {
     private List< Product > productOrder;
-    private ProductBinWrapper productBinWrapper;
+    private OrderWrapper orderWrapper;
 
     public BinProductListAdapter( List< Product > productOrder ) {
         this.productOrder = productOrder;
     }
 
-    public BinProductListAdapter( List< Product > productOrder, ProductBinWrapper productBinWrapper ) {
+    public BinProductListAdapter( List< Product > productOrder, OrderWrapper orderWrapper ) {
         this.productOrder = productOrder;
-        this.productBinWrapper = productBinWrapper;
-        productBinWrapper.addBinChangeLisnter( this );
+        this.orderWrapper = orderWrapper;
+        orderWrapper.addBinChangeLisnter( this );
     }
 
-    public void setProductBinWrapper( ProductBinWrapper productBinWrapper ) {
-        this.productBinWrapper = productBinWrapper;
-        productBinWrapper.addBinChangeLisnter( this );
+    public void setOrderWrapper( OrderWrapper orderWrapper ) {
+        this.orderWrapper = orderWrapper;
+        orderWrapper.addBinChangeLisnter( this );
     }
 
     @Override
@@ -74,7 +74,7 @@ public class BinProductListAdapter extends BaseAdapter implements IProductBinCha
             @Override
             public void onCheckedChanged( CompoundButton buttonView, boolean isChecked ) {
                 if (!isChecked ) {
-                    productBinWrapper.removeProduct( product );
+                    orderWrapper.removeProduct( product );
                 }
             }
         } );
@@ -83,7 +83,7 @@ public class BinProductListAdapter extends BaseAdapter implements IProductBinCha
     }
 
     @Override
-    public void update( ProductBinWrapper productBin, Product product ) {
+    public void update( OrderWrapper productBin, Product product ) {
         productOrder.remove( product );
         if (productBin.containsProduct( product )) {
             productOrder.add( 0, product );

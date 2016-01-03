@@ -1,10 +1,12 @@
-package com.preorder.preorder;
+package com.preorder.preorder.ui;
 
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.preorder.preorder.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,7 +17,7 @@ public class SelectPickUpTimeActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_select_pick_up_time);
+        setContentView( R.layout.content_select_pick_up_time);
 
         TextView orderDateView = (TextView) findViewById( R.id.order_date );
         orderDateView.setOnClickListener(new View.OnClickListener() {

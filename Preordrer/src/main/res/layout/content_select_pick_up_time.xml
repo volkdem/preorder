@@ -9,7 +9,7 @@
     android:orientation="horizontal"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_select_pick_up_time"
-    tools:context="com.preorder.preorder.SelectPickUpTimeActivity">
+    tools:context="com.preorder.preorder.ui.SelectPickUpTimeActivity">
 
     <TextView
         android:layout_height="wrap_content"

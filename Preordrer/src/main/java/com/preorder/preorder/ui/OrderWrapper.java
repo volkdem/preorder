@@ -1,4 +1,4 @@
-package com.preorder.preorder;
+package com.preorder.preorder.ui;
 
 import com.preorder.preorder.model.IProductBinChangeListener;
 import org.prototype.model.Product;
