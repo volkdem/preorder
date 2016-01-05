@@ -10,4 +10,10 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="pickup_order">Забрать</string>
     <string name="soon">ближайшее время</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nearest_time">Ближайшее время</string>
+    <string name="take_order">Заберу заказ</string>
+    <string name="at">в</string>
 </resources>

@@ -1,0 +1,76 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             tools:context="com.preorder.preorder.ui.PickUpTimeFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nearest_time"
+            android:layout_marginBottom="0pt"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0pt">
+
+            <NumberPicker
+                android:id="@+id/date_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxHeight="10pt"
+                android:scrollbarStyle="insideInset"
+                android:isScrollContainer="true"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal"
+                >
+            </NumberPicker>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/at"/>
+
+            <NumberPicker
+                android:id="@+id/hour_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxHeight="10pt"
+                android:scrollbarStyle="insideInset"
+                android:isScrollContainer="true"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="3pt"
+                >
+            </NumberPicker>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text=":"/>
+
+            <NumberPicker
+                android:id="@+id/minute_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxHeight="10pt"
+                android:scrollbarStyle="insideInset"
+                android:isScrollContainer="true"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal"
+                android:dividerPadding="10pt"
+                >
+            </NumberPicker>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

@@ -11,8 +11,22 @@
     <ListView
         android:id="@+id/list_item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="90pt">
     </ListView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/take_order"/>
+
+    <fragment
+        android:id="@+id/pick_up_time_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2pt"
+        class="com.preorder.preorder.ui.PickUpTimeFragment"/>
+
 
     <TextView
         android:id="@+id/order_number"
