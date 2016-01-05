@@ -1,6 +1,7 @@
 package com.preorder.preorder.ui;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
@@ -71,7 +72,7 @@ public class RestraintMenuFragment extends ListFragment {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView, final ViewGroup parent) {
             View view = convertView;
             if (convertView == null ) {
                 LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -79,25 +80,38 @@ public class RestraintMenuFragment extends ListFragment {
             }
             final Product product = products.get(position);
 
+            view.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick( View v ) {
+                    int count = orderWrapper.getCount( product );
+                    orderWrapper.addProduct( product, count + 1 );
+                }
+            } );
+
             TextView productView = (TextView) view.findViewById( R.id.product) ;
             productView.setText(product.getName());
 
             TextView costView = (TextView) view.findViewById( R.id.cost) ;
-            costView.setText(product.getCost().toString() );
+            costView.setText( product.getCost().toString() );
 
-            CheckBox checkBox = (CheckBox) view.findViewById( R.id.productSelectionChecker);
-            checkBox.setChecked( orderWrapper.containsProduct( product ) );
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            final TextView productCountView = ( TextView ) view.findViewById( R.id.product_count );
+            productCountView.setText( orderWrapper.getCount( product ).toString() );
+            productCountView.setOnClickListener( new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    buttonView.setChecked(isChecked);
-                    if (isChecked) {
-                        orderWrapper.addProduct( product, 1 );
-                    } else {
-                        orderWrapper.removeProduct( product );
-                    }
+                public void onClick( View v ) {
+                    final NumberPickerDialog numberPickerDialog = new NumberPickerDialog( parent.getContext() );
+                    numberPickerDialog.setOnDismissListener( new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss( DialogInterface dialog ) {
+                            productCountView.setText( String.valueOf( numberPickerDialog.getCount() ) );
+                            orderWrapper.addProduct( product, numberPickerDialog.getCount() );
+                        }
+                    } );
+
+                    numberPickerDialog.show( orderWrapper.getCount( product ) );
                 }
-            });
+            } );
 
             return view;
         }

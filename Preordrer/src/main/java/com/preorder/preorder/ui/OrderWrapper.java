@@ -61,4 +61,13 @@ public class OrderWrapper {
             binChangeListener.update( this, product );
         }
     }
+
+    public Integer getCount( Product product ) {
+        Integer count = order.getProducts().get( product );
+        if (count == null) {
+            return 0;
+        }
+
+        return count;
+    }
 }

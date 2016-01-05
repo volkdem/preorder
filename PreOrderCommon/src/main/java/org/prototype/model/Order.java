@@ -55,7 +55,11 @@ public class Order implements Serializable {
     }
 
     public void addProduct(Product product, int count) {
-        products.put(product, count);
+        if ( count == 0 ) {
+            products.remove( product );
+        } else {
+            products.put( product, count );
+        }
 
     }
 
