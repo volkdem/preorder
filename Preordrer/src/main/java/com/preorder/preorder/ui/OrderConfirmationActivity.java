@@ -14,7 +14,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.preorder.preorder.OrderSinglton;
 import com.preorder.preorder.R;
+import com.preorder.preorder.model.IProductBinChangeListener;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
@@ -25,6 +27,7 @@ import org.prototype.model.Order;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 
 public class OrderConfirmationActivity extends AppCompatActivity {
@@ -35,14 +38,26 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         setContentView( R.layout.activity_order_confirmation );
 
         ListView orderListView = (ListView) findViewById( R.id.list_item );
-        List< Product > productOrder = (List< Product >)getIntent().getSerializableExtra( ProductBinFragment.PRODUCT_ORDER_KEY );
-        final Order order = (Order ) getIntent().getSerializableExtra( ProductBinFragment.BIN_KEY );
-        orderListView.setAdapter( new BinProductListAdapter( productOrder , new OrderWrapper( order ) ) );
+        List< Product > productOrder = OrderSinglton.getProductOrder();
+        final Order order = OrderSinglton.getOrder();
+        OrderWrapper orderWrapper = new OrderWrapper( order );
+        orderListView.setAdapter( new BinProductListAdapter( productOrder , orderWrapper ) );
 
-        Button payButton = ( Button ) findViewById( R.id.pay_button );
+        final Button payButton = ( Button ) findViewById( R.id.pay_button );
+        orderWrapper.addBinChangeLisnter( new IProductBinChangeListener() {
+            @Override
+            public void update( OrderWrapper productBin, Product product ) {
+                payButton.setEnabled( !productBin.isEmpty() );
+            }
+        } );
+
         payButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick( View v ) {
+                PickUpTimeFragment pickupTimeFragment = ( PickUpTimeFragment ) getFragmentManager().findFragmentById( R.id.pick_up_time_fragment );
+                Calendar pickupTime = pickupTimeFragment.getPickupDatetime();
+                order.setPickupTime( pickupTime.getTime() );
+
                 RequestQueue rQueue = Volley.newRequestQueue( OrderConfirmationActivity.this );
                 final String payUrl = "http://localhost:8080/makePreOrder";
                 ObjectWriter writer = new ObjectMapper().writer().withDefaultPrettyPrinter();
