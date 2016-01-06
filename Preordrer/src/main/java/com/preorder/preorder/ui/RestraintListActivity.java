@@ -20,6 +20,7 @@ import com.preorder.preorder.stubs.StubFactory;
 import java.util.List;
 
 public class RestraintListActivity extends ListActivity {
+    public static final String RESTRAINT_ID_KEY = RestraintListActivity.class + ".RESTRAINT_ID_KEY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +90,7 @@ class RestraintViewAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Intent restraintIntent = new Intent();
                 restraintIntent.setClass( v.getContext(), GoodsSelectingActivity.class );
+                restraintIntent.putExtra( RestraintListActivity.RESTRAINT_ID_KEY, restraint.getId() );
                 v.getContext().startActivity( restraintIntent );
             }
         });

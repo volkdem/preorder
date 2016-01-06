@@ -39,6 +39,12 @@ public class RestraintMenuFragment extends ListFragment {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        ((MenuAdapter)getListView().getAdapter()).notifyDataSetChanged();
+    }
+
     public void setCatalog(ProductsCatalog catalog) {
         this.catalog = catalog;
     }
@@ -120,6 +126,8 @@ public class RestraintMenuFragment extends ListFragment {
         public void update( OrderWrapper productBin, Product product ) {
             notifyDataSetChanged();
         }
+
+
     }
 }
 

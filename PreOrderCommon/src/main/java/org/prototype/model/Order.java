@@ -102,4 +102,8 @@ public class Order implements Serializable {
                 ", itemsList=" + products +
                 '}';
     }
+
+    public boolean isEmpty() {
+        return getProducts().size() == 0;
+    }
 }

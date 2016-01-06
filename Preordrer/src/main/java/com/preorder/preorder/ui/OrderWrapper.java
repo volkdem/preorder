@@ -70,4 +70,8 @@ public class OrderWrapper {
 
         return count;
     }
+
+    public boolean isEmpty() {
+        return order.isEmpty();
+    }
 }
