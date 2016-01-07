@@ -48,10 +48,12 @@ public class ProductBinFragment extends Fragment implements IProductBinChangeLis
 
     @Override
     public void update(OrderWrapper orderWrapper, Product product ) {
-        productOrder.remove( product );
+
         if ( orderWrapper.containsProduct( product ) ) {
-            // put to the end of the list
-            productOrder.add( 0, product );
+            if ( !productOrder.contains( product ) )
+            productOrder.add( product );
+        } else {
+            productOrder.remove( product );
         }
 
         View binFragment = getView();

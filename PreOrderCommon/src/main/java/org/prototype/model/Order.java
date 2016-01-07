@@ -55,6 +55,9 @@ public class Order implements Serializable {
     }
 
     public void addProduct(Product product, int count) {
+        if (count > 9) {
+            return;
+        }
         if ( count == 0 ) {
             products.remove( product );
         } else {

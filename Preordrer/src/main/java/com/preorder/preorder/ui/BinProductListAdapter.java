@@ -103,9 +103,13 @@ public class BinProductListAdapter extends BaseAdapter implements IProductBinCha
 
     @Override
     public void update( OrderWrapper productBin, Product product ) {
-        productOrder.remove( product );
+
         if (productBin.containsProduct( product )) {
-            productOrder.add( 0, product );
+            if( !productOrder.contains( product )) {
+                productOrder.add( 0, product );
+            }
+        } else {
+            productOrder.remove( product );
         }
 
         notifyDataSetChanged();
