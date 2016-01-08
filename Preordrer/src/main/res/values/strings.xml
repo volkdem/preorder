@@ -16,4 +16,6 @@
     <string name="nearest_time">Ближайшее время</string>
     <string name="take_order">Заберу заказ</string>
     <string name="at">в</string>
+    <string name="order_payed">Заказ оплачен</string>
+    <string name="menu">Меню</string>
 </resources>

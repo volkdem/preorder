@@ -1,5 +1,6 @@
 package com.preorder.preorder.ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -67,6 +68,12 @@ public class OrderConfirmationActivity extends AppCompatActivity {
                 } catch ( IOException e ) {
                     e.printStackTrace();
                     // TODO
+                    return;
+                }
+
+                Intent startCompletedOrderAcitivityIntent = new Intent( getApplicationContext(), CompletedOrderActivity.class);
+                startActivity( startCompletedOrderAcitivityIntent );
+                if (true) {
                     return;
                 }
 
