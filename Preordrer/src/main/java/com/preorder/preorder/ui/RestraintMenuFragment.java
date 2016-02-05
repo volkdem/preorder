@@ -2,8 +2,11 @@ package com.preorder.preorder.ui;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.INotificationSideChannel;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,14 +14,18 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.preorder.preorder.R;
 import com.preorder.preorder.model.IProductBinChangeListener;
+import com.preorder.preorder.stubs.StubFactory;
+
 import org.prototype.model.Product;
 import org.prototype.model.ProductsCatalog;
 
+import java.net.URI;
 import java.util.List;
 
 /**
@@ -93,6 +100,9 @@ public class RestraintMenuFragment extends ListFragment {
                     orderWrapper.addProduct( product, count + 1 );
                 }
             } );
+
+            ImageView productImageView = ( ImageView ) view.findViewById( R.id.product_image );
+            productImageView.setImageDrawable( getResources().getDrawable( StubFactory.getProductImageId( product ) ) );
 
             TextView productView = (TextView) view.findViewById( R.id.product) ;
             productView.setText(product.getName());

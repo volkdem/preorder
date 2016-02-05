@@ -1,5 +1,9 @@
 package com.preorder.preorder.stubs;
 
+import android.content.ContentResolver;
+
+import com.preorder.preorder.R;
+
 import org.prototype.model.Product;
 import org.prototype.model.ProductsCatalog;
 import org.prototype.model.Restraint;
@@ -72,5 +76,13 @@ public class StubFactory {
         catalog.addProduct(new Product(62L, "МОРОЖЕННОЕ ТВИКС", new BigDecimal(30.0)));
 
         return catalogs;
+    }
+
+    public static int getProductImageId(Product product) {
+
+        switch ( product.getId().intValue() ) {
+            default: return R.drawable.product_bking_vopper_950x496;
+        }
+
     }
 }
